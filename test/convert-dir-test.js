@@ -1,19 +1,12 @@
-var includeSvg = require('../');
+var toReact = require('../');
 var test = require('tap').test;
 
-test('includeSvg streaming', function(t) {
-  var buffer = '';
-  function write(chunk, _, cb) { buffer += chunk; cb(); }
-
+test('convertDir happy path', function(t) {
   t.plan(4);
 
-  includeSvg('test/files', function(err, svgComponents) {
+  toReact.convertDir('test/files', function(err, svgComponents) {
     var filenNames = Object.keys(svgComponents);
     if (err) throw err;
-
-    Object.keys(svgComponents).forEach(function (k) {
-      console.log(svgComponents[k].toString());
-    });
 
     t.equal(filenNames.length, 3);
     t.ok(filenNames.indexOf('svg-file') !== -1);
@@ -22,3 +15,12 @@ test('includeSvg streaming', function(t) {
     t.end();
   });
 });
+
+test('convertDir with non-existing dir', function(t) {
+  t.plan(1);
+
+  toReact.convertDir('bogus/path', function(err, svgComponents) {
+    t.ok(err);
+  });
+});
+

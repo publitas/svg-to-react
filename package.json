@@ -1,11 +1,11 @@
 {
-  "name": "react-to-svg",
+  "name": "svg-to-react",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/publitas/react-to-svg"
+    "url": "https://github.com/publitas/svg-to-react"
   },
   "scripts": {
     "test": "node_modules/tap/bin/run.js test/*.js"

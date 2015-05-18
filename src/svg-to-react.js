@@ -24,7 +24,8 @@ module.exports = function(svgString) {
     }
   });
 
-  ast = returnLastStatement(ast);
+  ast.body.unshift(buildColorEvalAst());
+  ast = makeLastStatementReturn(ast);
 
   return Function('params', generate(ast));
 };
@@ -56,27 +57,19 @@ function removeHardcodedDimensions(node, parent, context) {
 }
 
 function parameterizeColors(node, parent, context) {
+  var evalColor;
+
   if (isPropertyIdentifierWithNames(node, ['fill', 'stroke'])) {
     if (node.value.value !== 'none') {
+      evalColor = 'evalColor("'+node.key.name+'", "'+node.value.value+'")';
       node.computed = false;
-      node.value = {
-          'type': 'MemberExpression',
-          'computed': false,
-          'object': {
-              'type': 'Identifier',
-              'name': 'params'
-          },
-          'property': {
-              'type': 'Identifier',
-              'name': 'color'
-          }
-      };
+      node.value = getAst(evalColor).body[0].expression;
       return node;
     }
   }
 }
 
-function returnLastStatement(ast) {
+function makeLastStatementReturn(ast) {
   var idx = ast.body.length-1;
   var lastStatement = ast.body[idx];
 
@@ -120,4 +113,25 @@ function isReactCreateElement(node) {
     && (node.callee.object && node.callee.object.name === 'React')
     && (node.callee.property && node.callee.property.name === 'createElement')
   );
+}
+
+function buildColorEvalAst() {
+  var makeColorEval = function() {
+    if (typeof params.color === 'function') {
+      return params.color;
+    } else {
+      return function() { return params.color; };
+    }
+  };
+
+  return getAst('var evalColor = ('+makeColorEval+'());').body[0];
+}
+
+function getAst(code) {
+  var trans = babel.transform(code, {
+    whitelist: [],
+    code: false
+  });
+
+  return trans.ast.program;
 }

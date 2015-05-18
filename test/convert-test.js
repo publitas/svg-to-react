@@ -44,15 +44,16 @@ test('convert keeps the viewBox intact', function(t) {
 
 test('convert removes hard coded colors', function(t) {
   var res = toReact.convert('<svg><circle stroke="#979797"></circle></svg>');
+
   t.match(
     res.toString(),
-    /React.createElement\('circle', { stroke: params.color }\)/
+    /React.createElement\('circle', { stroke: evalColor\('stroke', '#979797'\) }\)/
   );
 
   res = toReact.convert('<svg><circle fill="#fafafa"></circle></svg>');
   t.match(
     res.toString(),
-    /React.createElement\('circle', { fill: params.color }\)/
+    /React.createElement\('circle', { fill: evalColor\('fill', '#fafafa'\) }\)/
   );
 
   t.end();

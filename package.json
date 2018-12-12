@@ -15,7 +15,6 @@
   "dependencies": {
     "escodegen": "^1.11.0",
     "estraverse": "^4.2.0",
-    "react-svg-icons": "git+https://git@github.com/SailingSteve/react-svg-icons.git#steveNov29",
     "recursive-readdir": "^2.2.2",
     "svgo": "^1.1.1"
   },

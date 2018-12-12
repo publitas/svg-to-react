@@ -1,6 +1,6 @@
 {
   "name": "svg-to-react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -13,8 +13,8 @@
   "author": "Felix Hageloh",
   "license": "MIT",
   "dependencies": {
-    "escodegen": "^1.6.1",
-    "estraverse": "^4.1.0",
+    "escodegen": "^1.11.0",
+    "estraverse": "^4.2.0",
     "react-svg-icons": "git+https://git@github.com/SailingSteve/react-svg-icons.git#steveNov29",
     "recursive-readdir": "^2.2.2",
     "svgo": "^1.1.1"

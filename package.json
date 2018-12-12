@@ -1,6 +1,6 @@
 {
   "name": "svg-to-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -13,13 +13,15 @@
   "author": "Felix Hageloh",
   "license": "MIT",
   "dependencies": {
-    "babel-core": "^6.26.3",
     "escodegen": "^1.6.1",
     "estraverse": "^4.1.0",
+    "react-svg-icons": "git+https://git@github.com/SailingSteve/react-svg-icons.git#steveNov29",
     "recursive-readdir": "^2.2.2",
-    "svgo": "^0.5.1"
+    "svgo": "^1.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.0.0",
     "tap": "^12.1.0"
   }
 }
